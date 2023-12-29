@@ -10,8 +10,8 @@ File.open(OUTPUT_FILE_PATH, 'w')
 HASH_DATA = JSON.parse(INPUT_FILE)
 
 def compute_rent_days(rent)
-  start_date = Date.parse(rent['start_date'])
-  end_date =  Date.parse(rent['end_date'])
+  start_date = Date.parse(rent["start_date"])
+  end_date =  Date.parse(rent["end_date"])
 
   return -1 if start_date > end_date
 
@@ -27,14 +27,6 @@ def compute_rentals
     { "id": rental['id'], "price": rent_price}
   end
 end
-
-# rentals = hash_data['rentals'].map do |rental|
-#   car = hash_data['cars'].find { |car| car['id'] == rental['car_id'] }
-#   rent_days = compute_rent_days(rental)
-
-#   rent_price = (rent_days * car['price_per_day'] + rental['distance'] * car['price_per_km']).to_i
-#   { "id": rental['id'], "price": rent_price}
-# end 
 
 def output_data
   {

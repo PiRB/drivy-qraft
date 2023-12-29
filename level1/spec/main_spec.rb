@@ -4,14 +4,15 @@ describe '#compute_rent_days' do
   context 'with a rent for a day' do
     let(:rent) { 
       {
-        "id": 1,
-        "car_id": 1,
-        "start_date": "2017-12-8",
-        "end_date": "2017-12-8",
-        "distance": 100
+        "id"=> 1,
+        "car_id"=> 1,
+        "start_date"=> "2017-12-8",
+        "end_date"=> "2017-12-8",
+        "distance"=> 100
       } 
     }
     it 'should return 1' do
+      puts rent
       expect(compute_rent_days(rent)).to eq(1)
     end
   end
@@ -19,11 +20,11 @@ describe '#compute_rent_days' do
   context 'with a rent for two days' do
     let(:rent) { 
       {
-        "id": 1,
-        "car_id": 1,
-        "start_date": "2017-12-8",
-        "end_date": "2017-12-9",
-        "distance": 100
+        "id"=> 1,
+        "car_id"=> 1,
+        "start_date"=> "2017-12-8",
+        "end_date"=> "2017-12-9",
+        "distance"=> 100
       } 
     }
     it 'should return 2' do
@@ -34,11 +35,11 @@ describe '#compute_rent_days' do
   context 'with a rent for three days' do
     let(:rent) { 
       {
-        "id": 1,
-        "car_id": 1,
-        "start_date": "2017-12-8",
-        "end_date": "2017-12-10",
-        "distance": 100
+        "id"=> 1,
+        "car_id"=> 1,
+        "start_date"=> "2017-12-8",
+        "end_date"=> "2017-12-10",
+        "distance"=> 100
       } 
     }
     it 'should return 3' do
@@ -49,11 +50,11 @@ describe '#compute_rent_days' do
   context 'with a rent for ten days' do
     let(:rent) { 
       {
-        "id": 1,
-        "car_id": 1,
-        "start_date": "2017-12-8",
-        "end_date": "2017-12-17",
-        "distance": 100
+        "id"=> 1,
+        "car_id"=> 1,
+        "start_date"=> "2017-12-8",
+        "end_date"=> "2017-12-17",
+        "distance"=> 100
       } 
     }
     it 'should return 10' do
@@ -64,11 +65,11 @@ describe '#compute_rent_days' do
   context 'with a start date greater than the end date' do
     let(:rent) { 
       {
-        "id": 1,
-        "car_id": 1,
-        "start_date": "2017-12-8",
-        "end_date": "2017-12-7",
-        "distance": 100
+        "id"=> 1,
+        "car_id"=> 1,
+        "start_date"=> "2017-12-8",
+        "end_date"=> "2017-12-7",
+        "distance"=> 100
       } 
     }
     it 'should return -1' do
