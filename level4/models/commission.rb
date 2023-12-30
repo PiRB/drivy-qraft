@@ -12,4 +12,8 @@ class Commission
     "drivy_fee": drivy_fee.to_i
   }
   end
+
+  def commission_amount
+    insurance_fee + assistance_fee + drivy_fee
+  end
 end
