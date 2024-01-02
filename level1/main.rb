@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'json'
 require 'date'
+require '../lib/rent_days'
 
 INPUT_FILE_PATH = './data/input.json'
 OUTPUT_FILE_PATH = './data/output.json'
@@ -9,29 +10,25 @@ INPUT_FILE = File.read(INPUT_FILE_PATH)
 File.open(OUTPUT_FILE_PATH, 'w')
 HASH_DATA = JSON.parse(INPUT_FILE)
 
-def compute_rent_days(rent)
-  start_date = Date.parse(rent["start_date"])
-  end_date =  Date.parse(rent["end_date"])
+def days_rent_price(rent:, price_per_day:)
+  rent_days = compute_rent_days(rent)
 
-  return -1 if start_date > end_date
-
-  return end_date - start_date + 1
+  rent_days * price_per_day
 end
 
-def compute_rentals
+def distance_rent_price(distance:, price_per_km:)
+  distance * price_per_km
+end
+
+def generate_rentals_hash
   HASH_DATA['rentals'].map do |rental|
     car = HASH_DATA['cars'].find { |car| car['id'] == rental['car_id'] }
-    rent_days = compute_rent_days(rental)
-  
-    rent_price = (rent_days * car['price_per_day'] + rental['distance'] * car['price_per_km']).to_i
-    { "id": rental['id'], "price": rent_price}
+    days_price = days_rent_price(rent: rental, price_per_day: car['price_per_day'])
+    distance_price = distance_rent_price(distance: rental['distance'], price_per_km: car['price_per_km'])
+    rent_price = days_price + distance_price
+
+    { "id": rental['id'], "price": rent_price.to_i}
   end
 end
 
-def output_data
-  {
-    "rentals": compute_rentals
-  }
-end
-
-File.open(OUTPUT_FILE_PATH, 'w') {|file| file.write(JSON.pretty_generate(output_data))}
+File.open(OUTPUT_FILE_PATH, 'w') {|file| file.write(JSON.pretty_generate({ "rentals": generate_rentals_hash }))}
