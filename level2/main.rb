@@ -1,15 +1,10 @@
 # frozen_string_literal: true
 require 'json'
 require 'date'
+require '../lib/read_data'
 require '../lib/rent_days'
 
-INPUT_FILE_PATH = './data/input.json'
 OUTPUT_FILE_PATH = './data/output.json'
-INPUT_FILE = File.read(INPUT_FILE_PATH)
-
-File.open(OUTPUT_FILE_PATH, 'w')
-HASH_DATA = JSON.parse(INPUT_FILE)
-
 DISCOUNT_AFTER_1_DAY = 0.9
 DISCOUNT_AFTER_4_DAYS = 0.7
 DISCOUNT_AFTER_10_DAYS = 0.5
@@ -52,12 +47,14 @@ def compute_rent_pricing(car:, rent:)
 end
 
 def generate_rentals_hash
-  HASH_DATA['rentals'].map do |rent|
-    car = HASH_DATA['cars'].find { |car| car['id'] == rent['car_id'] }
+  data_hash = read_data
+
+  data_hash['rentals'].map do |rent|
+    car = data_hash['cars'].find { |car| car['id'] == rent['car_id'] }
 
     rent_price = compute_rent_pricing(car:, rent:)
 
-    { "id": rent['id'], "price": rent_price }
+    { "id": rent['id'], "price": rent_price.to_i }
   end
 end
 

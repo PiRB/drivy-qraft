@@ -1,9 +1,5 @@
 class ResponseGenerator
-
-  INPUT_FILE_PATH = './data/input.json'
   OUTPUT_FILE_PATH = './data/output.json'
-  INPUT_FILE = File.read(INPUT_FILE_PATH)
-  DATA_HASH = JSON.parse(INPUT_FILE)
 
   def call
     rentals = generate_rentals_hash
@@ -13,9 +9,11 @@ class ResponseGenerator
   private
 
   def generate_rentals_hash
-    DATA_HASH['rentals'].map do |rent|
+    data_hash = read_data
+
+    data_hash['rentals'].map do |rent|
       rental = Rent.new(rent:)
-      car = DATA_HASH['cars'].find { |car| car['id'] == rent['car_id'] }
+      car = data_hash['cars'].find { |car| car['id'] == rent['car_id'] }
       rent_car = Car.new(car:)
 
       rental.car = rent_car
