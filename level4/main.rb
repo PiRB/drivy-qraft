@@ -8,6 +8,8 @@ require './models/commission'
 require './models/rent'
 require './services/actions/create'
 require './services/commissions/create'
+require './services/rents/pricing'
 require './services/response_generator/create'
+require '../lib/read_data'
 
 ResponseGenerator::Create.new.call

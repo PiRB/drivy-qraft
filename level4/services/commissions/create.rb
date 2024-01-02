@@ -2,6 +2,10 @@ module Commissions
   class Create
     attr_reader :rent
 
+    COMMISSION_VALUE = 0.3
+    ROADSIDE_ASSISTANCE_AMOUNT = 100
+    INSURANCE_FEE_PERCENTAGE = 0.5
+
     def initialize(rent:)
       @rent = rent
     end
@@ -17,15 +21,15 @@ module Commissions
     private
 
     def insurance_fee
-      commission_amout / 2
+      commission_amout * INSURANCE_FEE_PERCENTAGE
     end
 
     def assistance_fee
-      100 * rent.rent_days
+      ROADSIDE_ASSISTANCE_AMOUNT * rent.rent_days
     end
 
     def commission_amout
-      rent.price * 0.3
+      rent.price * COMMISSION_VALUE
     end
   end
 end
