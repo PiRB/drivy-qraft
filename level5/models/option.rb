@@ -6,6 +6,13 @@ class Option
   attribute :price_per_day, Integer, :default => :default_price_per_day
   attribute :beneficiary, String, :default => :default_beneficiary
 
+  def initialize(option:)
+    self.id = option['id']
+    self.type = option['type']
+    self.price_per_day = default_price_per_day
+    self.beneficiary = default_beneficiary
+  end
+
   def default_price_per_day
     case type
     when 'gps'
